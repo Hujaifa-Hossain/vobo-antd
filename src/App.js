@@ -1,17 +1,19 @@
-import React, { lazy, Suspense, useState } from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-
+import React, { lazy, Suspense } from "react";
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+  createBrowserRouter,
+  Link,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
+
+import { UserOutlined, ProfileFilled } from "@ant-design/icons";
+
 import { Layout, Menu } from "antd";
 
 import Loading from "./shared/Loading";
-const Home = lazy(() => import("./pages/Home"));
+const Users = lazy(() => import("./pages/Users"));
+const CreateUser = lazy(() => import("./pages/CreateUser"));
+const Pages = lazy(() => import("./pages/Pages"));
 const Details = lazy(() => import("./pages/Details"));
 const NotFound = lazy(() => import("./shared/NotFound"));
 const { Content, Sider } = Layout;
@@ -24,23 +26,16 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
+  getItem("Users", "sub1", <UserOutlined />, [
+    getItem("", "1", <Link to="/">All users</Link>),
+    getItem("", "2", <Link to="create-user">Register user</Link>),
   ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
+  getItem("Pages", "sub2", <ProfileFilled />, [
+    getItem("", "3", <Link to="pages">Pages</Link>),
   ]),
-  getItem("Files", "9", <FileOutlined />),
 ];
 
 const App = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
   const User = () => {
     return (
       <>
@@ -50,11 +45,11 @@ const App = () => {
           }}
         >
           <Sider
+            style={{ backgroundColor: "#fff" }}
+            breakpoint="lg"
+            collapsedWidth="60"
             collapsible
-            collapsed={collapsed}
-            onCollapse={(value) => setCollapsed(value)}
           >
-            
             <Menu
               theme="light"
               defaultSelectedKeys={["1"]}
@@ -63,7 +58,6 @@ const App = () => {
             />
           </Sider>
           <Layout className="site-layout">
-            
             <Content
               style={{
                 margin: "0 16px",
@@ -85,11 +79,19 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <Users />,
+        },
+        {
+          path: "create-user",
+          element: <CreateUser />,
         },
         {
           path: "users/:id",
           element: <Details />,
+        },
+        {
+          path: "pages",
+          element: <Pages />,
         },
       ],
     },

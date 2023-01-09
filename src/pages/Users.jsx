@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import User from './User';
+import User from '../components/User';
 
 const { Title } = Typography;
 const Users = () => {
@@ -19,7 +19,7 @@ const Users = () => {
   }, []);
   return (
     <div style={{ margin: '20px' }}>
-      <Title level={3} style={{textAlign: 'center'}}>All Users Info</Title>
+      <Title level={3} style={{ textAlign: 'center' }}>ALL USERS</Title>
 
 
       <Row

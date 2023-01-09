@@ -16,13 +16,13 @@ const Details = () => {
     getData();
   });
   return (
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh'}}>
+    <div style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
       <Card
       size='small'
-      title={`${data?.name}'s information`}
+      title={`${data?.name}'s info`}
       extra={<Link to='/'>Go Back!</Link>}
       style={{
-        width: 400,
+        width: 280,
       }}
     >
       <p>Name: {data?.name}</p>
